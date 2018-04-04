@@ -1,8 +1,10 @@
 <template>
   <div class="container">
+
       <b-container class="bv-example-row">
             <b-row>
                 <b-col md="9" sm="12">
+
                           <div class="textmain">
                               Registration
                           </div>
@@ -21,101 +23,147 @@
                             <div class="insidepanel1">Note: All fields must be completed. Only your first name, username, age and gender will be publicly displayed later.</div>
                           </div>
 
-                          <div>
-                              <b-container class="bv-example-row">
+
+                            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+
+                                <b-row>
+                                          <b-col>
+                                                      <b-form-group id="exampleInputGroup1"
+                                                                    label="first given name"
+                                                                    label-for="fname"
+                                                                    description="">
+                                                        <b-form-input id="exampleInput1"
+                                                                      type="text"
+                                                                      v-model="form.fname"
+                                                                      required>
+                                                        </b-form-input>
+                                                      </b-form-group>
+                                          </b-col>
+                                          <b-col>
+                                                      <b-form-group id="exampleInputGroup1"
+                                                                    label="Surname"
+                                                                    label-for="lname"
+                                                                    description="">
+                                                        <b-form-input id="exampleInput1"
+                                                                      type="text"
+                                                                      v-model="form.lname"
+                                                                      required>
+                                                        </b-form-input>
+                                                      </b-form-group>
+                                          </b-col>
+                                </b-row>
+
+                                Username <small class="small">Please Without Special Characters, Umlauts Or Spaces.</small>
+
+                                    <b-form-input id="exampleInput1"
+                                                  type="text"
+                                                  v-model="form.username"
+                                                  required>
+                                    </b-form-input>
+                                  </b-form-group>
+
                                   <b-row>
-                                    <b-col>
-                                          first given name
-                                          <b-form-input
-                                            type="text"></b-form-input>
-                                    </b-col>
-                                    <b-col>
-                                        Surname
-                                        <b-form-input
-                                          type="text"></b-form-input>
-                                    </b-col>
+                                        <b-col>
+                                                <b-form-group id="exampleInputGroup1"
+                                                              label="password"
+                                                              label-for="password"
+                                                              description="">
+                                                  <b-form-input id="exampleInput1"
+                                                                type="password"
+                                                                v-model="form.password"
+                                                                required>
+                                                  </b-form-input>
+                                                </b-form-group>
+                                        </b-col>
+                                        <b-col>
+                                                <b-form-group id="exampleInputGroup1"
+                                                              label="Repeat password"
+                                                              label-for="repeatpwd"
+                                                              description="">
+                                                  <b-form-input id="exampleInput1"
+                                                                type="password"
+                                                                required>
+                                                  </b-form-input>
+                                                </b-form-group>
+                                        </b-col>
                                   </b-row>
+
+                                  <b-form-group id="exampleInputGroup2"
+                                                label="E-mail address"
+                                                label-for="email">
+                                        <b-form-input id="exampleInput2"
+                                                      type="email"
+                                                      v-model="form.email"
+                                                      required>
+                                        </b-form-input>
+                                  </b-form-group>
+
                                   <b-row>
-                                    <b-col>
-                                    Username <small class="small">Please Without Special Characters, Umlauts Or Spaces.</small>
-                                        <b-form-input
-                                          type="text"></b-form-input>
-                                    </b-col>
+                                      <b-col>
+                                              <b-form-group id="exampleInputGroup1"
+                                                            label="Date of birth"
+                                                            label-for="dob"
+                                                            description="">
+                                                <b-form-input id="exampleInput1"
+                                                              type="date"
+                                                              v-model="form.dob"
+                                                              required>
+                                                </b-form-input>
+                                              </b-form-group>
+                                      </b-col>
+                                      <b-col>
+                                              <b-form-group id="exampleInputGroup1"
+                                                            label="Gender"
+                                                            label-for="gender"
+                                                            description="">
+                                                <b-form-select id="exampleInput1"
+                                                              :options="options"
+                                                              v-model="form.gender"
+                                                              required>
+                                                </b-form-select>
+                                              </b-form-group>
+                                      </b-col>
                                   </b-row>
-                                  <b-row>
-                                    <b-col>
-                                          password
-                                          <b-form-input
-                                            type="password"></b-form-input>
-                                    </b-col>
-                                    <b-col>
-                                        Repeat password
-                                        <b-form-input
-                                          type="password  "></b-form-input>
-                                    </b-col>
-                                  </b-row>
-                                  <b-row>
-                                    <b-col>
-                                    E-mail address
-                                        <b-form-input
-                                          type="email"></b-form-input>
-                                    </b-col>
-                                  </b-row>
-                                  <b-row>
-                                    <b-col>
-                                          Date of birth
-                                          <b-form-input
-                                            type="date"></b-form-input>
-                                    </b-col>
-                                    <b-col>
-                                        gender
-                                        <b-form-select v-model="selected"
-                                          :options="options"></b-form-select>
-                                    </b-col>
-                                  </b-row>
+
                                   <b-row>
                                     <b-col>
                                         Please enter the displayed security code in the box below.
                                     </b-col>
                                   </b-row>
+
                                   <b-row>
                                     <b-col md="2">
                                           <div class="code">query91</div>
                                     </b-col>
                                     <b-col>
                                         security code
-                                        <b-form-input
+                                        <b-form-input v-model="form.code"
                                           type="text"></b-form-input>
                                     </b-col>
                                   </b-row>
-                                  <b-row>
-                                    <b-col>
-                                          Newsletter
-                                    </b-col>
-                                  </b-row>
-                                  <b-row>
-                                    <b-col>
-                                    <b-form-checkbox id="checkbox1"
-                                                     value="accepted"
-                                                     unchecked-value="not_accepted">
-                                                     Yes, I would like to receive regular newsletters about information and news on TandemPartners.org.
+
+
+                                  <b-form-group id="exampleGroup4">
+                                      <b-form-checkbox v-model="form.newsletter" value="true">
+                                            Yes, I would like to receive regular newsletters about information and news on TandemPartners.org.
                                       </b-form-checkbox>
-                                    </b-col>
-                                  </b-row>
+                                  </b-form-group>
+
                                   <b-row>
                                     <b-col>
-                                    <br />
                                       By registering, I confirm that I have read and accepted the <span class="link">privacy policy</span> .
+                                          <br />
                                     </b-col>
+
+
                                   </b-row>
-                              </b-container>
+                                  <b-button type="submit" variant="primary">Submit</b-button>
+                                  <b-button type="reset" variant="danger">Reset</b-button>
+                                </b-form>
+                            <div>
+
                           </div>
 
-
-
-                          <b-button class="btn1">
-                              <b>to Register</b>
-                         </b-button>
                    </b-col>
                 <b-col md="3">
                   <div class="mgbottom"><span class="textcolor">display <span class="spanright"></span></span></div>
@@ -141,14 +189,48 @@
 </template>
 
 <script>
+
+
     export default {
       data() {
         return {
-          selected: 'Choose..',
-            options: [ 'Male', 'Female'
-              ]
+          form: {
+                  fname:'',
+                  lname:'',
+                  email:'',
+                  username:'',
+                  dob:'',
+                  code:'',
+                  password:'',
+                  gender:'',
+                  newsletter:''
+                },
+          show: true,
+          options: [ 'Male', 'Female']
         }
-      }
+      },
+  methods: {
+    onSubmit (evt) {
+      evt.preventDefault();
+      console.log(JSON.stringify(this.form));
+    },
+    onReset (evt) {
+      evt.preventDefault();
+      /* Reset our form values */
+      this.form.email = '';
+      this.form.fname = '';
+      this.form.lname = '';
+      this.form.username = '';
+      this.form.dob = '';
+      this.form.code = '';
+      this.form.password = '';
+      this.form.gender = '';
+
+      /* Trick to reset/clear native browser form validation state */
+      this.show = false;
+      this.$nextTick(() => { this.show = true });
+    }
+  }
     }
 </script>
 
